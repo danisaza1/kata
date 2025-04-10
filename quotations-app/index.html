@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="script.js"></script> 
+    <title>Quotations</title>
+</head>
+<body>
+<h1> Mes citations</h1>
+<h2> Gestionnaire de citations en ligne </h2>
+<h3 id="count">Nombre de citations enregistrées : " 0 citations "</h3>
+<hr />
+<!-- représente un changement thématique entre des éléments de paragraphe 
+(par exemple, un changement de décor dans un récit, un changement de 
+sujet au sein d'une section). -->
+
+<form id="formulario">
+    <label for="citation"> Saisir la citation :</label><br>
+    <input type="text" id="citation" name="citation"><br>
+    <!-- IDs are for hooking the element with JavaScript and CSS. 
+    The name attribute, however, is used in the HTTP request sent by your 
+    browser to the server as a variable name associated with the data contained 
+    in the value attribute -->
+
+    <label for="auteur"> Saisir le nom de l’auteur.ice :</label><br>
+    <input type="text" id="auteur" name="auteur">
+    
+    <button type="submit" id="submit-btn"> Soumettre </button>
+  </form>
+
+<div id="quote-list">
+    <div class="quote">
+        <p class="text"> </p>   
+        <p class="author"> </p> 
+    </div>
+</div>  
+
+  
+</body>
+</html>
