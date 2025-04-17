@@ -81,3 +81,12 @@ body {
     opacity: 0.5;
     pointer-events: none;
 }
+
+canvas {
+    margin-top: 20px;
+    display: none;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background-color: #fafafa;
+  }
+  
