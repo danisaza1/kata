@@ -1,4 +1,4 @@
-const entrerNomCity = document.getElementById("cityInput").value;
+const entrerNomCity = document.getElementById("cityInput");
 const nomCity = document.getElementById("city");
 const button =document.getElementById("ok")
 const coordonnesCity = document.getElementById("gps");
@@ -6,38 +6,53 @@ const temperatureCity = document.getElementById("temperature");
 const detailsCity = document.getElementById("details");
 
 
-async function getCity(params = "") {
-    const url = `https://www.nominatim.openstreetmap.org/search.html?q=${params}`;
-    const reponse = await fetch(url); 
-    const data = await reponse.json();
-}
-
-      
-button.addEventListener ("click", () => {
-    const entrerNomCity = document.getElementById("cityInput").value;
-    getCity(entrerNomCity)
+button.addEventListener("click", () => {
+    const cityName = entrerNomCity.value;
+    getCity(cityName);
 });
 
 
+async function getCity(city) {
+    const url = `https://nominatim.openstreetmap.org/search?q=${city}&format=json`;
+    const reponse = await fetch(url); 
+    const data = await reponse.json(); 
 
-        
-
-
-	
-
-
-
-const fetchWeather = (lat, lng, city) => {
-// A toi de jouer pour implémenter le code dans l'exercice en dessous !
+fetchCoordinates(data)
 }
 
-fetchWeather(50.633333,3.066667 , "lille")
-fetchWeather(43.3, 5.4 , "marseille")
-// ... 
+function fetchCoordinates(data) {
+    if (data.length > 0) {
+        const lat = data[0].lat;
+        const lon = data[0].lon;
+        coordonnesCity.innerText = `Coordonnées GPS: ${lat}, ${lon}`;
+        nomCity.innerText = data[0].name;
+        fetchWeather(lat,lon)
+      }else {
+        nomCity.innerText = `Ville non trouvée`;
+        coordonnesCity.innerText = '-';
+        detailsCity.innerHTML = `Vérifiez le nom de la ville`
+        temperatureCity.innerHTML = '-';
+      }
+}
 
-console.log(json.current.temperature_2m)
-  document.getElementById("pluie_lille").innerHTML = "<strong>" + json.current.rain + "</strong>"
-  document.getElementById("degres_lille").innerHTML = "<strong>" + json.current.temperature_2m + "</strong>"
+
+async function fetchWeather(lat, lon){
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,precipitation,relative_humidity_2m`;
+    const reponse = await fetch(url); 
+    const data = await reponse.json(); 
+ 
+    const temperature = data.current.temperature_2m;
+    temperatureCity.innerHTML = `${temperature}°C`;
+    detailsCity.innerHTML = "Température actuelle";
+}
+
+
+
+
+
+
+
+
 
 
 
